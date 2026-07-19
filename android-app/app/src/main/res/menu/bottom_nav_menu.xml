@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@android:drawable/ic_menu_today"
+        android:title="@string/nav_home"/>
+    <item
+        android:id="@+id/nav_trackpad"
+        android:icon="@android:drawable/ic_menu_send"
+        android:title="@string/nav_trackpad"/>
+    <item
+        android:id="@+id/nav_keyboard"
+        android:icon="@android:drawable/ic_menu_edit"
+        android:title="@string/nav_keyboard"/>
+    <item
+        android:id="@+id/nav_clipboard"
+        android:icon="@android:drawable/ic_menu_crop"
+        android:title="@string/nav_clipboard"/>
+</menu>

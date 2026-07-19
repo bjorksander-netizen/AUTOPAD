@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/primary_bg">
+
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="16dp"
+        android:background="@color/secondary_bg">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/keyboard_title"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/primary_text"/>
+    </LinearLayout>
+
+    <!-- Text Input -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:hint="@string/keyboard_hint"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        app:boxStrokeColor="@color/accent_cyan"
+        app:hintTextColor="@color/accent_cyan"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_keyboard_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/primary_text"
+            android:textColorHint="@color/secondary_text"
+            android:inputType="text"
+            android:maxLines="1"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <!-- Function Keys Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="4dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/key_f1" style="@style/KeyboardKey"
+                    android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_height="wrap_content" android:text="F1"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/key_f2" style="@style/KeyboardKey"
+                    android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_height="wrap_content" android:text="F2"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/key_f3" style="@style/KeyboardKey"
+                    android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_height="wrap_content" android:text="F3"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/key_f4" style="@style/KeyboardKey"
+                    android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_height="wrap_content" android:text="F4"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/key_f5" style="@style/KeyboardKey"
+                    android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_height="wrap_content" android:text="F5"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/key_f6" style="@style/KeyboardKey"
+                    android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_height="wrap_content" android:text="F6"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="4dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/key_f7" style="@style/KeyboardKey"
+                    android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_height="wrap_content" android:text="F7"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/key_f8" style="@style/KeyboardKey"
+                    android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_height="wrap_content" android:text="F8"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/key_f9" style="@style/KeyboardKey"
+                    android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_height="wrap_content" android:text="F9"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/key_f10" style="@style/KeyboardKey"
+                    android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_height="wrap_content" android:text="F10"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/key_f11" style="@style/KeyboardKey"
+                    android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_height="wrap_content" android:text="F11"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/key_f12" style="@style/KeyboardKey"
+                    android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_height="wrap_content" android:text="F12"/>
+            </LinearLayout>
+
+            <!-- Row 1 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="4dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/key_q" style="@style/KeyboardKey"
+                    android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_height="wrap_content" android:text="Q"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/key_w" style="@style/KeyboardKey"
+                    android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_height="wrap_content" android:text="W"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/key_e" style="@style/KeyboardKey"
+                    android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_height="wrap_content" android:text="E"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/key_r" style="@style/KeyboardKey"
+                    android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_height="wrap_content" android:text="R"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/key_t" style="@style/KeyboardKey"
+                    android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_height="wrap_content" android:text="T"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/key_y" style="@style/KeyboardKey"
+                    android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_height="wrap_content" android:text="Y"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/key_u" style="@style/KeyboardKey"
+                    android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_height="wrap_content" android:text="U"/>
+            </LinearLayout>
+
+            <!-- Row 2 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="4dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/key_a" style="@style/KeyboardKey"
+                    android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_height="wrap_content" android:text="A"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/key_s" style="@style/KeyboardKey"
+                    android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_height="wrap_content" android:text="S"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/key_d" style="@style/KeyboardKey"
+                    android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_height="wrap_content" android:text="D"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/key_f" style="@style/KeyboardKey"
+                    android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_height="wrap_content" android:text="F"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/key_g" style="@style/KeyboardKey"
+                    android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_height="wrap_content" android:text="G"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/key_h" style="@style/KeyboardKey"
+                    android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_height="wrap_content" android:text="H"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/key_j" style="@style/KeyboardKey"
+                    android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_height="wrap_content" android:text="J"/>
+            </LinearLayout>
+
+            <!-- Row 3 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="4dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/key_z" style="@style/KeyboardKey"
+                    android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_height="wrap_content" android:text="Z"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/key_x" style="@style/KeyboardKey"
+                    android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_height="wrap_content" android:text="X"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/key_c" style="@style/KeyboardKey"
+                    android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_height="wrap_content" android:text="C"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/key_v" style="@style/KeyboardKey"
+                    android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_height="wrap_content" android:text="V"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/key_b" style="@style/KeyboardKey"
+                    android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_height="wrap_content" android:text="B"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/key_n" style="@style/KeyboardKey"
+                    android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_height="wrap_content" android:text="N"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/key_m" style="@style/KeyboardKey"
+                    android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_height="wrap_content" android:text="M"/>
+            </LinearLayout>
+
+            <!-- Modifier Keys -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="4dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/key_ctrl" style="@style/ModifierKey"
+                    android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_height="wrap_content" android:text="Ctrl"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/key_alt" style="@style/ModifierKey"
+                    android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_height="wrap_content" android:text="Alt"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/key_shift" style="@style/ModifierKey"
+                    android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_height="wrap_content" android:text="Shift"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/key_win" style="@style/ModifierKey"
+                    android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_height="wrap_content" android:text="Win"/>
+            </LinearLayout>
+
+            <!-- Special Keys -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="4dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/key_tab" style="@style/SpecialKey"
+                    android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_height="wrap_content" android:text="Tab"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/key_enter" style="@style/SpecialKey"
+                    android:layout_width="0dp" android:layout_weight="2"
+                    android:layout_height="wrap_content" android:text="Enter"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/key_backspace" style="@style/SpecialKey"
+                    android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_height="wrap_content" android:text="Bksp"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/key_escape" style="@style/SpecialKey"
+                    android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_height="wrap_content" android:text="Esc"/>
+            </LinearLayout>
+
+            <!-- Spacebar -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/key_space"
+                style="@style/KeyboardKey"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="Space"/>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
