@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_home -> { loadFragment(HomeFragment()); true }
                 R.id.nav_trackpad -> { loadFragment(TrackpadFragment()); true }
                 R.id.nav_keyboard -> { loadFragment(KeyboardFragment()); true }
+                R.id.nav_media -> { loadFragment(MediaFragment()); true }
                 R.id.nav_clipboard -> { loadFragment(ClipboardFragment()); true }
                 else -> false
             }

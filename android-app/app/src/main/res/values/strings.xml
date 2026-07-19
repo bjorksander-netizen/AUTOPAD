@@ -6,6 +6,7 @@
     <string name="nav_home">Home</string>
     <string name="nav_trackpad">Trackpad</string>
     <string name="nav_keyboard">Keyboard</string>
+    <string name="nav_media">Media</string>
     <string name="nav_clipboard">Clipboard</string>
 
     <!-- Connection -->

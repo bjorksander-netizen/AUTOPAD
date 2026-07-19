@@ -1,8 +1,14 @@
 """AUTOPAD Media Controller - Windows Audio & Media Keys"""
 
 import ctypes
-import time
 from ctypes import wintypes
+
+try:
+    from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume
+    from comtypes import CLSCTX_ALL
+    PYCAW_AVAILABLE = True
+except ImportError:
+    PYCAW_AVAILABLE = False
 
 
 class MediaController:
@@ -14,16 +20,13 @@ class MediaController:
     VK_VOLUME_DOWN = 0xAE
     VK_VOLUME_MUTE = 0xAD
 
-    INPUT_KEYBOARD = 1
     KEYEVENTF_KEYUP = 0x0002
-
     KEYEVENTF_EXTENDEDKEY = 0x0001
 
     def __init__(self):
         self.user32 = ctypes.windll.user32
 
     def _send_key(self, vk_code: int):
-        key_down = self.INPUT_KEYBOARD
         self.user32.keybd_event(vk_code, 0, self.KEYEVENTF_EXTENDEDKEY, 0)
         self.user32.keybd_event(vk_code, 0, self.KEYEVENTF_EXTENDEDKEY | self.KEYEVENTF_KEYUP, 0)
 
@@ -49,9 +52,9 @@ class MediaController:
         self._send_key(self.VK_VOLUME_MUTE)
 
     def volume_set(self, level: int):
+        if not PYCAW_AVAILABLE:
+            return
         try:
-            from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume
-            from comtypes import CLSCTX_ALL
             devices = AudioUtilities.GetSpeakers()
             interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)
             volume = interface.QueryInterface(IAudioEndpointVolume)
@@ -61,9 +64,9 @@ class MediaController:
             pass
 
     def get_volume(self) -> int:
+        if not PYCAW_AVAILABLE:
+            return 50
         try:
-            from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume
-            from comtypes import CLSCTX_ALL
             devices = AudioUtilities.GetSpeakers()
             interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)
             volume = interface.QueryInterface(IAudioEndpointVolume)
@@ -73,9 +76,9 @@ class MediaController:
             return 50
 
     def is_muted(self) -> bool:
+        if not PYCAW_AVAILABLE:
+            return False
         try:
-            from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume
-            from comtypes import CLSCTX_ALL
             devices = AudioUtilities.GetSpeakers()
             interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)
             volume = interface.QueryInterface(IAudioEndpointVolume)

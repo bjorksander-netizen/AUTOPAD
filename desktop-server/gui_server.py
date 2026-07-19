@@ -20,8 +20,6 @@ from connection.bluetooth_server import BluetoothServer
 from connection.usb_server import USBServer
 import config
 
-VERSION = "1.1.0"
-
 BG_DARK = "#121212"
 BG_SECONDARY = "#1E1E1E"
 BG_TERTIARY = "#2C2C2C"
@@ -37,7 +35,7 @@ WARNING_YELLOW = "#FFD600"
 class AutopadServerGUI:
     def __init__(self):
         self.root = tk.Tk()
-        self.root.title(f"AUTOPAD Server v{VERSION}")
+        self.root.title(f"AUTOPAD Server v{config.VERSION}")
         self.root.geometry("520x680")
         self.root.configure(bg=BG_DARK)
         self.root.resizable(False, False)
@@ -57,7 +55,7 @@ class AutopadServerGUI:
 
         tk.Label(title_frame, text="AUTOPAD", font=("Segoe UI", 24, "bold"),
                  fg=ACCENT_CYAN, bg=BG_SECONDARY).pack(pady=(15, 0))
-        tk.Label(title_frame, text=f"Desktop Server v{VERSION}",
+        tk.Label(title_frame, text=f"Desktop Server v{config.VERSION}",
                  font=("Segoe UI", 10), fg=TEXT_SECONDARY, bg=BG_SECONDARY).pack(pady=(0, 15))
 
         status_frame = tk.Frame(self.root, bg=BG_TERTIARY, highlightbackground="#333333",
@@ -131,7 +129,7 @@ class AutopadServerGUI:
             s.close()
             self.lbl_ip.config(text=f"IP: {ip}:{config.WS_PORT}")
         except Exception:
-            self.lbl_ip.config(text="IP: 127.0.0.1:8765")
+            self.lbl_ip.config(text=f"IP: 127.0.0.1:{config.WS_PORT}")
 
     def _log(self, msg: str):
         if self.root:
@@ -249,7 +247,7 @@ class AutopadServerGUIHandler:
             if token == config.AUTH_TOKEN:
                 self._send_to(source, Message.connect({
                     "name": config.DEVICE_NAME,
-                    "version": VERSION
+                    "version": config.VERSION
                 }).to_json())
                 self._log("Client authenticated")
             else:
@@ -302,11 +300,17 @@ class AutopadServerGUIHandler:
             self._send_to(source, Message.clipboard_sync(content, "windows").to_json())
 
     def _send_to(self, target, message: str):
-        asyncio.get_event_loop().create_task(self.wifi.send_to_all(message))
+        if target is not None:
+            coro = self.wifi.send_to(target, message)
+        else:
+            coro = self.wifi.send_to_all(message)
+        if self.gui.loop is not None and self.gui.loop.is_running():
+            asyncio.run_coroutine_threadsafe(coro, self.gui.loop)
 
     def _on_clipboard_changed(self, content: str):
         msg = Message.clipboard_changed(content, "windows")
-        asyncio.get_event_loop().create_task(self.wifi.send_to_all(msg.to_json()))
+        if self.gui.loop is not None and self.gui.loop.is_running():
+            asyncio.run_coroutine_threadsafe(self.wifi.send_to_all(msg.to_json()), self.gui.loop)
 
     def _on_client_connect(self, client_info: str):
         self.connected_clients.append(client_info)

@@ -32,7 +32,7 @@ class WiFiServer:
         except Exception:
             return "127.0.0.1"
 
-    async def _handler(self, websocket, path=None):
+    async def _handler(self, websocket):
         self._clients.add(websocket)
         client_info = f"{websocket.remote_address}"
         if self._on_connect:

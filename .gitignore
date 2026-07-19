@@ -1,0 +1,18 @@
+# Desktop server
+desktop-server/build/
+desktop-server/dist/
+desktop-server/*.spec
+desktop-server/connection/__pycache__/
+desktop-server/__pycache__/
+
+# Android
+android-app/.gradle/
+android-app/app/build/
+android-app/build/
+android-app/local.properties
+android-app/.idea/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db

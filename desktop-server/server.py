@@ -13,6 +13,7 @@ from connection.wifi_server import WiFiServer
 from connection.bluetooth_server import BluetoothServer
 from connection.usb_server import USBServer
 import config
+from functools import partial
 
 
 class AutopadServer:
@@ -30,6 +31,7 @@ class AutopadServer:
         )
         self.usb = USBServer(ws_port=config.WS_PORT)
         self._active_ws = None
+        self._loop = None
 
     def _log(self, msg: str):
         print(f"[AUTOPAD] {msg}")
@@ -53,7 +55,7 @@ class AutopadServer:
             if token == config.AUTH_TOKEN:
                 self._send_to(source, Message.connect({
                     "name": config.DEVICE_NAME,
-                    "version": "1.0.0"
+                    "version": config.VERSION
                 }).to_json())
                 self._log("Client authenticated successfully")
             else:
@@ -129,11 +131,17 @@ class AutopadServer:
             self._send_to(source, response.to_json())
 
     def _send_to(self, target, message: str):
-        asyncio.get_event_loop().create_task(self.wifi.send_to_all(message))
+        if target is not None:
+            coro = self.wifi.send_to(target, message)
+        else:
+            coro = self.wifi.send_to_all(message)
+        if self._loop is not None and self._loop.is_running():
+            asyncio.run_coroutine_threadsafe(coro, self._loop)
 
     def _on_clipboard_changed(self, content: str):
         msg = Message.clipboard_changed(content, "windows")
-        asyncio.get_event_loop().create_task(self.wifi.send_to_all(msg.to_json()))
+        if self._loop is not None and self._loop.is_running():
+            asyncio.run_coroutine_threadsafe(self.wifi.send_to_all(msg.to_json()), self._loop)
 
     def _on_client_connect(self, client_info: str):
         self._log(f"Client connected: {client_info}")
@@ -148,7 +156,7 @@ class AutopadServer:
   / /| |    / __/ / / __ `/ /|_/ /\__ \
  / ___ |   / /___/ / / / / /  / /___/ /
 /_/  |_|  /_____/_/ /_/ /_/  /_//____/
-        Remote Control v1.0.0
+        Remote Control v""" + config.VERSION
         """)
 
         self.wifi.set_callbacks(
@@ -198,14 +206,14 @@ class AutopadServer:
 
 async def main():
     server = AutopadServer()
-    loop = asyncio.get_event_loop()
+    loop = asyncio.get_running_loop()
+    server._loop = loop
 
     def signal_handler():
-        asyncio.ensure_future(server.stop())
-        sys.exit(0)
+        raise KeyboardInterrupt()
 
     if sys.platform == "win32":
-        signal.signal(signal.SIGINT, signal_handler)
+        signal.signal(signal.SIGINT, lambda *_: loop.call_soon_threadsafe(lambda: None))
     else:
         loop.add_signal_handler(signal.SIGINT, signal_handler)
 

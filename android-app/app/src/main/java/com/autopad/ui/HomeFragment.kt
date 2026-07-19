@@ -78,7 +78,7 @@ class HomeFragment : Fragment() {
             (activity as? MainActivity)?.navigateTo(R.id.nav_keyboard)
         }
         cardMedia.setOnClickListener {
-            (activity as? MainActivity)?.navigateTo(R.id.nav_keyboard)
+            (activity as? MainActivity)?.navigateTo(R.id.nav_media)
         }
         cardClipboard.setOnClickListener {
             (activity as? MainActivity)?.navigateTo(R.id.nav_clipboard)

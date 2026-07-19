@@ -19,6 +19,7 @@ class TrackpadFragment : Fragment() {
     private var lastY = 0f
     private var lastTapTime = 0L
     private var tapCount = 0
+    private var longPressTriggered = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_trackpad, container, false)
@@ -39,10 +40,13 @@ class TrackpadFragment : Fragment() {
                     lastX = event.x
                     lastY = event.y
                     val now = System.currentTimeMillis()
+                    longPressTriggered = false
                     if (now - lastTapTime < 300) {
                         tapCount++
                         if (tapCount >= 2) {
-                            connectionManager.sendMessage(AutopadMessage.mouseDoubleClick())
+                            if (connectionManager.isConnected()) {
+                                connectionManager.sendMessage(AutopadMessage.mouseDoubleClick())
+                            }
                             tapCount = 0
                         }
                     } else {
@@ -62,21 +66,25 @@ class TrackpadFragment : Fragment() {
                     true
                 }
                 MotionEvent.ACTION_UP -> {
-                    if (tapCount == 1 && System.currentTimeMillis() - lastTapTime >= 300) {
-                        if (connectionManager.isConnected()) {
-                            connectionManager.sendMessage(AutopadMessage.mouseClick())
+                    if (!longPressTriggered) {
+                        val elapsed = System.currentTimeMillis() - lastTapTime
+                        if (tapCount == 1 && elapsed < 300) {
+                            if (connectionManager.isConnected()) {
+                                connectionManager.sendMessage(AutopadMessage.mouseClick())
+                            }
+                            tapCount = 0
                         }
-                        tapCount = 0
                     }
+                    longPressTriggered = false
                     true
                 }
                 else -> false
             }
         }
 
-        var longPressTriggered = false
         trackpadArea.setOnLongClickListener {
             longPressTriggered = true
+            tapCount = 0
             if (connectionManager.isConnected()) {
                 connectionManager.sendMessage(AutopadMessage.mouseDown("right"))
             }

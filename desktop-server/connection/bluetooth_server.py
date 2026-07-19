@@ -5,12 +5,6 @@ import threading
 from typing import Callable, Optional
 
 try:
-    from bleak import BleakServer, BleakGATTCharacteristic
-    BLEAK_AVAILABLE = True
-except ImportError:
-    BLEAK_AVAILABLE = False
-
-try:
     import bluetooth
     PYBLUEZ_AVAILABLE = True
 except ImportError:
@@ -46,7 +40,7 @@ class BluetoothServer:
                     break
                 message = data.decode("utf-8")
                 if self._on_message:
-                    self._on_message(message, self)
+                    self._on_message(message, None)
         except Exception:
             pass
         finally:
