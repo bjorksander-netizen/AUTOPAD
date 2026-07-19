@@ -5,6 +5,7 @@ on:
     branches: [ "main" ]
     paths:
       - 'android-app/**'
+      - '.github/workflows/**'
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
@@ -23,41 +24,19 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: Setup Android SDK
-      uses: android-actions/setup-android@v3
+    - name: Setup Gradle
+      uses: gradle/actions/setup-gradle@v4
 
-    - name: Fix gradlew line endings
+    - name: Fix line endings
       working-directory: android-app
-      run: |
-        sed -i 's/\r$//' gradlew
-        chmod +x gradlew
-
-    - name: Cache Gradle packages
-      uses: actions/cache@v4
-      with:
-        path: |
-          ~/.gradle/caches
-          ~/.gradle/wrapper
-        key: ${{ runner.os }}-gradle-${{ hashFiles('android-app/**/*.gradle*') }}
-        restore-keys: |
-          ${{ runner.os }}-gradle-
+      run: sed -i 's/\r$//' gradlew && chmod +x gradlew
 
     - name: Build Debug APK
       working-directory: android-app
-      run: ./gradlew assembleDebug --no-daemon
-
-    - name: Build Release APK
-      working-directory: android-app
-      run: ./gradlew assembleRelease --no-daemon
+      run: ./gradlew assembleDebug
 
     - name: Upload Debug APK
       uses: actions/upload-artifact@v4
       with:
-        name: AUTOPAD-debug
+        name: AUTOPAD-debug-apk
         path: android-app/app/build/outputs/apk/debug/app-debug.apk
-
-    - name: Upload Release APK
-      uses: actions/upload-artifact@v4
-      with:
-        name: AUTOPAD-release
-        path: android-app/app/build/outputs/apk/release/app-release-unsigned.apk
