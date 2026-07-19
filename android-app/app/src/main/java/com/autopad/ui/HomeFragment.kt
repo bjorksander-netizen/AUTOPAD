@@ -14,6 +14,7 @@ import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.autopad.R
+import com.autopad.MainActivity
 import com.autopad.connection.ConnectionManager
 
 class HomeFragment : Fragment() {
