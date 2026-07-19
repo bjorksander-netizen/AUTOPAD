@@ -4,7 +4,7 @@
         <item name="colorPrimary">@color/accent_cyan</item>
         <item name="colorPrimaryContainer">@color/primary_bg</item>
         <item name="colorSecondary">@color/accent_purple</item>
-        <item name="colorOnPrimary">@color/btn_text</item>
+        <item name="colorOnPrimary">@color/button_text</item>
         <item name="colorOnSecondary">@color/primary_text</item>
         <item name="android:colorBackground">@color/primary_bg</item>
         <item name="colorSurface">@color/secondary_bg</item>
@@ -44,7 +44,7 @@
         <item name="android:textColor">@color/primary_text</item>
         <item name="cornerRadius">8dp</item>
         <item name="android:minHeight">44dp</item>
-        <item name="textSize">14sp</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
     <style name="ModifierKey" parent="Widget.Material3.Button">
