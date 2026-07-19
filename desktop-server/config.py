@@ -1,5 +1,7 @@
 """AUTOPAD Configuration"""
 
+VERSION = "1.1.0"
+
 WS_HOST = "0.0.0.0"
 WS_PORT = 8765
 UDP_DISCOVERY_PORT = 8766
